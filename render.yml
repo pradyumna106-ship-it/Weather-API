@@ -1,16 +1,12 @@
 services:
-  # Redis service first
   - type: redis
     name: weather-redis
-    ipAllowList: []  # Internal only
-    maxmemoryPolicy: allkeys-lru  # Eviction policy
+    ipAllowList: []
 
-  # Spring Boot web service
-  - type: pserv
+  - type: pserv  # Private backend service
     name: weather-api-spring
-    env: java
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/*.jar
+    env: docker  # Docker runtime only
+    dockerCommand: java -jar target/*.jar  # Optional override
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
@@ -18,7 +14,6 @@ services:
         fromService:
           type: redis
           name: weather-redis
-          property: connectionString  # Injects full redis:// URL
+          property: connectionString
       - key: WEATHER_API_KEY
-        value: FR83YB9XB8B468JLR4HKMTEAR  # Externalize later
-
+        value: FR83YB9XB8B468JLR4HKMTEAR

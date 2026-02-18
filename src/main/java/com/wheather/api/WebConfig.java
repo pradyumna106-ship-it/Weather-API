@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")  // All endpoints
                 .allowedOriginPatterns("http://localhost:5173", "http://localhost:3000")  // Vite ports
                 .allowedOriginPatterns(
-                		"https://*.vercel.app"
+                		"https://weather-app-theta-brown-28.vercel.app"
                 		)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")

@@ -1,6 +1,12 @@
-FROM openjdk:17-jdk-slim
-WORKDIR /demo
+FROM eclipse-temurin:17-jdk-jammy
+
+WORKDIR /app
+
 COPY . .
+
+RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
-EXPOSE ${PORT:-8083}
-CMD ["java", "-jar", "target/*.jar"]
+
+EXPOSE 8083
+
+CMD ["sh", "-c", "java -jar target/*.jar"]

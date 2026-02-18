@@ -1,0 +1,16 @@
+services:
+  - type: pserv  # Private Redis service
+    name: weather-redis
+    env: redis  # Or docker for custom
+    region: oregon  # Match your region
+
+  - type: web
+    name: weather-api-spring
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+    redis:  # Auto-injects REDIS_URL, REDIS_HOST, etc.
+      fromService: weather-redis

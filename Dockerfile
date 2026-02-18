@@ -1,5 +1,5 @@
 FROM openjdk:17-jdk-slim
-WORKDIR /demo
+WORKDIR /app
 COPY . .
 RUN ./mvnw clean package -DskipTests
 EXPOSE ${PORT:-8083}
